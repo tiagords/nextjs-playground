@@ -14,6 +14,8 @@ export default function Home({ recommendedProducts }: IHomeProps) {
   async function handleSum() {
     const math = (await import("../lib/math")).default;
 
+    console.log(`${process.env.NEXT_PUBLIC_API_URL}`);
+
     console.log(math.sum(45, 2235235235));
   }
   return (
@@ -34,7 +36,9 @@ export default function Home({ recommendedProducts }: IHomeProps) {
 }
 
 export const getServerSideProps: GetServerSideProps<IHomeProps> = async () => {
-  const response = await fetch("http://localhost:3333/recommended");
+  const response = await fetch(
+    `${process.env.NEXT_PUBLIC_API_URL}/recommended`
+  );
   const recommendedProducts = await response.json();
 
   return {
